@@ -12,10 +12,10 @@ public class LoadAndSave {
     }
 
 
-
+            // Writes the isPainted Array in a file. \\
     public void save() {
         try {
-            FileWriter fileWriter = new FileWriter("/Users/codecadet/Documents/javaInteliJ/MapEditor/SaveAndLoadDir/save.txt");
+            FileWriter fileWriter = new FileWriter("MapEditor/SaveAndLoadDir/save.txt");
             for (int i = 0; i < grid.getIsPainted().length; i++) {
                 if (grid.getIsPainted()[i]) {
                     fileWriter.write("1" + "\n");
@@ -31,6 +31,8 @@ public class LoadAndSave {
         }
     }
 
+
+            // Transcribe to the isPainted array and paint the grid as the isPainted array is at the moment \\
     public void load() {
 
         String[] placeHolder = readAndOrganize();
@@ -46,10 +48,10 @@ public class LoadAndSave {
         }
     }
 
-
+            // Reads the file of 0 and 1 and return a String array \\
     public String[] readAndOrganize() {
         try {
-            FileReader fileReader = new FileReader("/Users/codecadet/Documents/javaInteliJ/MapEditor/SaveAndLoadDir/save.txt");
+            FileReader fileReader = new FileReader("MapEditor/SaveAndLoadDir/save.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line;
             String lineToLoad = "";
@@ -59,7 +61,6 @@ public class LoadAndSave {
             }
 
             arrayOfLine = lineToLoad.split("");
-
 
             bufferedReader.close();
             fileReader.close();

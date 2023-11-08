@@ -10,16 +10,21 @@ public class Player {
 
 
     public Player(Grid grid, LoadAndSave loadAndSave) {
-        player = new Rectangle(Grid.PADDLE,Grid.PADDLE,20,20);
-        KeyBoardEvents keyBoardEvents = new KeyBoardEvents(this,grid, loadAndSave);
+        createPlayer(loadAndSave);
         this.grid = grid;
-        keyBoardEvents.initKeyboardEvents();
     }
 
-    public void fill() {
+            //Creates the player and starts the keyboard events \\
+    public void createPlayer(LoadAndSave loadAndSave) {
+        player = new Rectangle(Grid.PADDING,Grid.PADDING,20,20);
+        KeyBoardEvents keyBoardEvents = new KeyBoardEvents(this,grid, loadAndSave);
+        keyBoardEvents.initKeyboardEvents();
         player.setColor(Color.GREEN);
         player.fill();
     }
+
+            //Movement of the player in the grid \\
+
     public void moveUp() {
         if (player.getY() != grid.getOutGridY()) {
             player.translate(0, -20);
@@ -55,15 +60,16 @@ public class Player {
 
 
     public void paint() {
-        int index = getIndexOfRectangle();
-        if (!grid.getIsPainted()[index]) {
-            grid.getRectanglesArray()[index].fill();
-            grid.setIsPainted(index,true);
+        if (!grid.getIsPainted()[getIndexOfRectangle()]) {
+            grid.getRectanglesArray()[getIndexOfRectangle()].fill();
+            grid.setIsPainted(getIndexOfRectangle(),true);
         } else {
-            grid.getRectanglesArray()[index].draw();
-            grid.setIsPainted(index,false);
+            grid.getRectanglesArray()[getIndexOfRectangle()].draw();
+            grid.setIsPainted(getIndexOfRectangle(),false);
         }
     }
+
+                    //Clear all the grid\\
     public void clear() {
         for (int i = 0; i < grid.getRectanglesArray().length; i ++) {
             grid.getRectanglesArray()[i].draw();
@@ -71,11 +77,8 @@ public class Player {
         }
     }
 
-    public void setPainting(boolean painting) {
-        this.painting = painting;
-    }
 
-
+                    //Returns the index of the rectangle the player is in\\
     private int getIndexOfRectangle() {
         for (int i = 0; i < grid.getRectanglesArray().length; i++) {
             if (grid.getRectanglesArray()[i].getX() == player.getX() && grid.getRectanglesArray()[i].getY() == player.getY()) {
@@ -83,5 +86,10 @@ public class Player {
             }
         }
         return -1;
+    }
+
+                        //Getters and setters\\
+    public void setPainting(boolean painting) {
+        this.painting = painting;
     }
 }
